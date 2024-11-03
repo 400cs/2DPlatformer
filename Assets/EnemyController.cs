@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : PhysicsBase
@@ -21,6 +22,7 @@ public class EnemyController : PhysicsBase
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Ouch");
+            Destroy(other.gameObject);
         }
         desiredx = -desiredx;
     }

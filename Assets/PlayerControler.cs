@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerControler : PhysicsBase
 {
+    private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GetComponent<GameObject>();
     }
 
     // Update is called once per frame
@@ -25,6 +26,7 @@ public class PlayerControler : PhysicsBase
         if (other.gameObject.CompareTag("Lethal"))
         {
             Debug.Log("Ouch");
+            Destroy(player);
         }
     }
 

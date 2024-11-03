@@ -19,4 +19,23 @@ public class PlayerControler : PhysicsBase
 
         if (Input.GetButton("Jump") && grounded) velocity.y = 6.5f;
     }
+
+    public void Collide(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Lethal"))
+        {
+            Debug.Log("Ouch");
+        }
+    }
+
+    public override void ColliderHorizontal(Collider2D other)
+    {
+        Collide(other);
+    }
+
+    public override void ColliderVertical(Collider2D other)
+    {
+        Collide(other);
+    }
+
 }

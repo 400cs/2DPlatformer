@@ -15,6 +15,16 @@ public class PhysicsBase : MonoBehaviour
         
     }
 
+    public virtual void ColliderHorizontal(Collider2D other)
+    {
+
+    }
+
+    public virtual void ColliderVertical(Collider2D other)
+    {
+
+    }
+
     void Movement(Vector2 move, bool horizontal)
     {
         if (move.magnitude < 0.000001f) return;
@@ -22,19 +32,23 @@ public class PhysicsBase : MonoBehaviour
 
         RaycastHit2D[] hits = new RaycastHit2D[16];
         int cnt = GetComponent<Rigidbody2D>().Cast(move, hits, move.magnitude + 0.01f);
+        bool collision = false;
+
         for (int i = 0; i < cnt; i++)
         {
             if (Mathf.Abs(hits[i].normal.x) > 0.3f && horizontal)
             {
-                return;
+                collision = true;
+                ColliderHorizontal(hits[i].collider);
             }
             if (Mathf.Abs(hits[i].normal.y) > 0.3f && !horizontal)
             {
                 if (hits[i].normal.y > 0.3f) grounded = true;
-                return;
+                collision = true;
+                ColliderVertical(hits[i].collider);
             }
         }
-
+        if (collision) return;
         transform.position += (Vector3)move;
     }
 
